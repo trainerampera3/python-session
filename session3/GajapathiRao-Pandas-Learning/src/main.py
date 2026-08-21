@@ -24,13 +24,13 @@ df["Year"] = pd.to_numeric(
     errors="coerce"
 )
 
-# Fill year values downward
+
 df["Year"] = df["Year"].ffill()
 
-# Remove rows where Year is still missing
+
 df = df.dropna(subset=["Year"])
 
-# Convert Year to integer
+
 df["Year"] = df["Year"].astype(int)
 
 
@@ -75,16 +75,14 @@ df.columns = columns
 
 
 
-print("\n========== DATA INFORMATION ==========")
+# print("\nShape:")
+# print(df.shape)
 
-print("\nShape:")
-print(df.shape)
+# print("\nColumns:")
+# print(df.columns.tolist())
 
-print("\nColumns:")
-print(df.columns.tolist())
-
-print("\nData Types:")
-print(df.dtypes)
+# print("\nData Types:")
+# print(df.dtypes)
 
 
 
@@ -125,7 +123,6 @@ recent_trend = worldwide_trend[
 ]
 
 
-print("\n========== WORLDWIDE SEMICONDUCTOR BILLINGS ==========")
 
 print(
     recent_trend[
@@ -145,15 +142,15 @@ highest_year = worldwide_trend.loc[
 ]
 
 
-print("\n========== HIGHEST BILLING YEAR ==========")
 
-print(
-    f"Year: {highest_year['Year']}"
-)
 
-print(
-    f"Billings: ${highest_year['Billions_USD']:.2f} Billion"
-)
+# print(
+#     f"Year: {highest_year['Year']}"
+# )
+
+# print(
+#     f"Billings: ${highest_year['Billions_USD']:.2f} Billion"
+# )
 
 
 plt.figure(figsize=(10, 6))
@@ -182,6 +179,186 @@ plt.grid(True)
 
 plt.tight_layout()
 
+# plt.savefig(
+#     Path("output") / "worldwide_semiconductor_billings.png"
+# )
+
+
+regional = df[
+    df["Region"] != "Worldwide"
+]
+
+highest_region = regional.loc[
+    regional["Total Year"].idxmax()
+]
+
+print(
+    f"Highest Region: {highest_region['Region']}"
+)
+
+print(
+    f"Year: {highest_region['Year']}"
+)
+
+print(
+    f"Billings: {highest_region['Total Year']}"
+)
+
+
+
+period_2020_2022 = recent_trend[
+    recent_trend["Year"].between(2020, 2022)
+]
+
+
+
+print(
+    period_2020_2022[
+        [
+            "Year",
+            "Billions_USD",
+            "YoY_Growth_%"
+        ]
+    ].to_string(index=False)
+)
+
+
+# Visualization
+plt.figure(figsize=(10, 6))
+
+plt.plot(
+    period_2020_2022["Year"],
+    period_2020_2022["Billions_USD"],
+    marker="o"
+)
+
+plt.xlabel("Year")
+plt.ylabel("Billings (Billion USD)")
+
+plt.title(
+    "Worldwide Semiconductor Billings: 2020–2022"
+)
+
+plt.xticks(
+    period_2020_2022["Year"]
+)
+
+plt.grid(True)
+
+plt.tight_layout()
+
 plt.savefig(
-    Path("output") / "worldwide_semiconductor_billings.png"
+    Path("output") / "semiconductor_billings_2020_2022.png"
+)
+
+
+
+recovery_period = recent_trend[
+    recent_trend["Year"] >= 2022
+]
+
+
+
+print(
+    recovery_period[
+        [
+            "Year",
+            "Billions_USD",
+            "YoY_Growth_%"
+        ]
+    ].to_string(index=False)
+)
+
+
+# Visualization
+plt.figure(figsize=(10, 6))
+
+plt.plot(
+    recovery_period["Year"],
+    recovery_period["Billions_USD"],
+    marker="o"
+)
+
+plt.xlabel("Year")
+
+plt.ylabel(
+    "Billings (Billion USD)"
+)
+
+plt.title(
+    "Semiconductor Market Recovery: 2022–2026"
+)
+
+plt.xticks(
+    recovery_period["Year"]
+)
+
+plt.grid(True)
+
+plt.tight_layout()
+
+plt.savefig(
+    Path("output") / "semiconductor_market_recovery_2022_2026.png"
+)
+
+
+
+
+year_2026 = recent_trend[
+    recent_trend["Year"] == 2026
+]
+
+
+print(
+    year_2026[
+        [
+            "Year",
+            "Billions_USD",
+            "YoY_Growth_%"
+        ]
+    ].to_string(index=False)
+)
+
+
+highest_year = recent_trend.loc[
+    recent_trend["Billions_USD"].idxmax()
+]
+
+print("\nHighest Year in 2020–2026:")
+
+print(
+    f"Year: {highest_year['Year']}"
+)
+
+print(
+    f"Billings: "
+    f"${highest_year['Billions_USD']:.2f} Billion"
+)
+
+
+plt.figure(figsize=(10, 6))
+
+plt.bar(
+    recent_trend["Year"].astype(str),
+    recent_trend["Billions_USD"]
+)
+
+plt.xlabel("Year")
+
+plt.ylabel(
+    "Billings (Billion USD)"
+)
+
+plt.title(
+    "Worldwide Semiconductor Billings: 2020–2026"
+)
+
+plt.grid(
+    axis="y"
+)
+
+plt.tight_layout()
+
+plt.savefig(
+    Path("output") / "semiconductor_billings_2020_2026.png"
 )
