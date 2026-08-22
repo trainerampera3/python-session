@@ -103,7 +103,7 @@ worldwide_trend = worldwide[
 
 worldwide_trend["Billions_USD"] = (
     worldwide_trend["Total Year"]
-    / 1_000_000
+    / 1000000
 )
 
 
