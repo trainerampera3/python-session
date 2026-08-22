@@ -84,7 +84,7 @@ df.columns = columns
 # print("\nData Types:")
 # print(df.dtypes)
 
-
+df.info()
 
 
 worldwide = df[
@@ -223,7 +223,7 @@ print(
 )
 
 
-# Visualization
+
 plt.figure(figsize=(10, 6))
 
 plt.plot(
