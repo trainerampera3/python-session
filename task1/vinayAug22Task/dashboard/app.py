@@ -4,100 +4,109 @@ from pathlib import Path
 import pandas as pd
 import streamlit as st
 
-
-# project path
 BASE_DIR = Path(__file__).resolve().parent.parent
 SRC_DIR = BASE_DIR / "src"
+
 sys.path.append(str(SRC_DIR))
 
-
-# visualizations
-from visualizations import (
+from analysis_visualization import (
     plot_price_distribution,
-    plot_price_vs_age,
+    plot_price_by_model,
     plot_price_vs_mileage,
-    plot_price_by_fuel,
-    plot_price_by_transmission,
-    plot_listings_by_brand,
-    plot_price_by_brand,
-    plot_listings_by_price_segment,
-    plot_fuel_distribution,
-    plot_listings_by_city,
-    plot_price_by_city,
-    plot_price_mileage_by_fuel,
+    plot_car_comparison,
+    plot_brand_listings,
+    plot_model_listings,
+    plot_brand_price,
+    plot_price_segments,
+    plot_city_listings,
+    plot_city_price,
+    plot_fuel_distribution
 )
-
 
 DATA_FILE = BASE_DIR / "data" / "processed" / "used_cars_cleaned.csv"
 
+st.set_page_config(
+    page_title="Used Car Analytics",
+    page_icon="🚗",
+    layout="wide"
+)
 
-st.set_page_config(page_title="Used Car Market Dashboard", page_icon="🚗", layout="wide")
 
-
-# load data
 @st.cache_data
 def load_data():
+    # Load the processed dataset
     return pd.read_csv(DATA_FILE)
 
 
 df = load_data()
 
+st.title("🚗 Used Car Market Analytics")
+st.caption("Interactive dashboard for customers, dealers and market analysis")
 
-st.title("🚗 Used Car Market Dashboard")
-st.write("Explore used-car prices, vehicle characteristics, inventory and market patterns.")
 
-
-# sidebar controls
-st.sidebar.header("Dashboard Controls")
-
+# Select the type of user
 perspective = st.sidebar.selectbox(
     "Select Perspective",
-    ["Overview", "Customer", "Seller / Dealer", "Market Analysis"]
+    [
+        "Customer",
+        "Seller / Dealer",
+        "Market Analyst"
+    ]
 )
 
-st.sidebar.subheader("Filters")
+st.sidebar.header("Filters")
 
 
-brands = sorted(df["oem"].dropna().unique().tolist())
-selected_brands = st.sidebar.multiselect("Brand", brands)
-
-fuels = sorted(df["fuel"].dropna().unique().tolist())
-selected_fuels = st.sidebar.multiselect("Fuel Type", fuels)
-
-transmissions = sorted(df["transmission"].dropna().unique().tolist())
-selected_transmissions = st.sidebar.multiselect("Transmission", transmissions)
-
-cities = sorted(df["city"].dropna().unique().tolist())
-selected_cities = st.sidebar.multiselect("City", cities)
+# Common filters
+brand_options = sorted(df["oem"].dropna().unique())
+fuel_options = sorted(df["fuel"].dropna().unique())
+transmission_options = sorted(df["transmission"].dropna().unique())
+city_options = sorted(df["city"].dropna().unique())
 
 
-min_price = float(df["price_lakhs"].min())
-max_price = float(df["price_lakhs"].max())
+selected_brand = st.sidebar.selectbox(
+    "Brand",
+    ["All"] + list(brand_options)
+)
 
-price_range = st.sidebar.slider(
-    "Price Range (Lakhs)",
-    min_value=min_price,
-    max_value=max_price,
-    value=(min_price, max_price)
+selected_fuel = st.sidebar.selectbox(
+    "Fuel",
+    ["All"] + list(fuel_options)
+)
+
+selected_transmission = st.sidebar.selectbox(
+    "Transmission",
+    ["All"] + list(transmission_options)
+)
+
+selected_city = st.sidebar.selectbox(
+    "City",
+    ["All"] + list(city_options)
 )
 
 
-# apply filters
+# Apply common filters
 filtered_df = df.copy()
 
-if selected_brands:
-    filtered_df = filtered_df[filtered_df["oem"].isin(selected_brands)]
+if selected_brand != "All":
+    filtered_df = filtered_df[
+        filtered_df["oem"] == selected_brand
+    ]
 
-if selected_fuels:
-    filtered_df = filtered_df[filtered_df["fuel"].isin(selected_fuels)]
+if selected_fuel != "All":
+    filtered_df = filtered_df[
+        filtered_df["fuel"] == selected_fuel
+    ]
 
-if selected_transmissions:
-    filtered_df = filtered_df[filtered_df["transmission"].isin(selected_transmissions)]
+if selected_transmission != "All":
+    filtered_df = filtered_df[
+        filtered_df["transmission"] == selected_transmission
+    ]
 
-if selected_cities:
-    filtered_df = filtered_df[filtered_df["city"].isin(selected_cities)]
-
-filtered_df = filtered_df[filtered_df["price_lakhs"].between(price_range[0], price_range[1])]
+if selected_city != "All":
+    filtered_df = filtered_df[
+        filtered_df["city"] == selected_city
+    ]
 
 
 if filtered_df.empty:
@@ -105,112 +114,230 @@ if filtered_df.empty:
     st.stop()
 
 
-# market overview
-st.subheader("Market Overview")
+# Customer dashboard
+if perspective == "Customer":
 
-col1, col2, col3, col4 = st.columns(4)
+    st.header("Customer Dashboard")
+    st.write("Find and compare used cars based on price and vehicle characteristics.")
 
-with col1:
-    st.metric("Total Cars", f"{len(filtered_df):,}")
+    model_options = sorted(
+        filtered_df["model"].dropna().unique()
+    )
 
-with col2:
-    st.metric("Average Price", f"₹{filtered_df['price_lakhs'].mean():.2f} L")
+    selected_model = st.sidebar.selectbox(
+        "Select Model",
+        ["All"] + list(model_options)
+    )
 
-with col3:
-    st.metric("Average Mileage", f"{filtered_df['km'].mean():,.0f} km")
+    if selected_model != "All":
+        customer_df = filtered_df[
+            filtered_df["model"] == selected_model
+        ]
+    else:
+        customer_df = filtered_df
 
-with col4:
-    top_brand = filtered_df["oem"].value_counts().index[0]
-    st.metric("Top Brand", top_brand.title())
+    if customer_df.empty:
+        st.warning("No cars found for the selected model.")
+        st.stop()
 
+    col1, col2, col3, col4 = st.columns(4)
 
-# overview
-if perspective == "Overview":
-    st.header("Used Car Market Overview")
-    st.write("A high-level view of prices, vehicle age, mileage and market composition.")
+    col1.metric(
+        "Cars Found",
+        f"{len(customer_df):,}"
+    )
+
+    col2.metric(
+        "Average Price",
+        f"₹{customer_df['price_lakhs'].mean():.2f} L"
+    )
+
+    col3.metric(
+        "Lowest Price",
+        f"₹{customer_df['price_lakhs'].min():.2f} L"
+    )
+
+    col4.metric(
+        "Average Mileage",
+        f"{customer_df['km'].mean():,.0f} km"
+    )
+
+    st.subheader("Price Overview")
 
     col1, col2 = st.columns(2)
 
     with col1:
-        st.pyplot(plot_price_distribution(filtered_df))
+        st.pyplot(
+            plot_price_distribution(customer_df)
+        )
 
     with col2:
-        st.pyplot(plot_listings_by_brand(filtered_df))
+        st.pyplot(
+            plot_price_by_model(filtered_df)
+        )
 
-    col1, col2 = st.columns(2)
+    st.subheader("Vehicle Comparison")
 
-    with col1:
-        st.pyplot(plot_listings_by_price_segment(filtered_df))
+    compare_models = st.multiselect(
+        "Select models to compare",
+        model_options,
+        max_selections=4
+    )
 
-    with col2:
-        st.pyplot(plot_fuel_distribution(filtered_df))
+    if len(compare_models) >= 2:
+        st.pyplot(
+            plot_car_comparison(
+                filtered_df,
+                compare_models
+            )
+        )
+    else:
+        st.info("Select at least two models to compare.")
 
+    st.subheader("Price and Usage")
 
-# customer
-elif perspective == "Customer":
-    st.header("👤 Customer Perspective")
-    st.write("Understand used-car prices and how vehicle characteristics relate to price.")
-
-    # price distribution
-    st.subheader("1. Price Distribution")
-    st.pyplot(plot_price_distribution(filtered_df))
-
-    # price and age
-    st.subheader("2. Price vs Vehicle Age")
-    st.pyplot(plot_price_vs_age(filtered_df))
-
-    # price and mileage
-    st.subheader("3. Price vs Mileage")
-    st.pyplot(plot_price_vs_mileage(filtered_df))
-
-    # fuel prices
-    st.subheader("4. Average Price by Fuel Type")
-    st.pyplot(plot_price_by_fuel(filtered_df))
-
-    # transmission prices
-    st.subheader("5. Average Price by Transmission")
-    st.pyplot(plot_price_by_transmission(filtered_df))
+    st.pyplot(
+        plot_price_vs_mileage(customer_df)
+    )
 
 
-# seller / dealer
+# Seller dashboard
 elif perspective == "Seller / Dealer":
-    st.header("🏪 Seller / Dealer Perspective")
-    st.write("Understand inventory composition, brand presence and price segments.")
 
-    # brand listings
-    st.subheader("1. Listings by Brand")
-    st.pyplot(plot_listings_by_brand(filtered_df))
+    st.header("Seller / Dealer Dashboard")
+    st.write("Understand inventory, brands, models and price segments.")
 
-    # brand prices
-    st.subheader("2. Average Price by Brand")
-    st.pyplot(plot_price_by_brand(filtered_df))
+    col1, col2, col3, col4 = st.columns(4)
 
-    # price segments
-    st.subheader("3. Listings by Price Segment")
-    st.pyplot(plot_listings_by_price_segment(filtered_df))
+    top_model = (
+        filtered_df["model"]
+        .value_counts()
+        .index[0]
+    )
 
-    # fuel distribution
-    st.subheader("4. Fuel Type Distribution")
-    st.pyplot(plot_fuel_distribution(filtered_df))
+    col1.metric(
+        "Total Listings",
+        f"{len(filtered_df):,}"
+    )
+
+    col2.metric(
+        "Average Price",
+        f"₹{filtered_df['price_lakhs'].mean():.2f} L"
+    )
+
+    col3.metric(
+        "Average Mileage",
+        f"{filtered_df['km'].mean():,.0f} km"
+    )
+
+    col4.metric(
+        "Top Model",
+        top_model.title()
+    )
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.pyplot(
+            plot_brand_listings(filtered_df)
+        )
+
+    with col2:
+        st.pyplot(
+            plot_model_listings(filtered_df)
+        )
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.pyplot(
+            plot_brand_price(filtered_df)
+        )
+
+    with col2:
+        st.pyplot(
+            plot_price_segments(filtered_df)
+        )
 
 
-# market analysis
-elif perspective == "Market Analysis":
-    st.header("🌍 Market Analysis")
-    st.write("Understand geographic patterns and relationships within the used-car market.")
+# Market analyst dashboard
+else:
 
-    # city listings
-    st.subheader("1. Listings by City")
-    st.pyplot(plot_listings_by_city(filtered_df))
+    st.header("Market Analysis Dashboard")
+    st.write("Understand overall market patterns, pricing and locations.")
 
-    # city prices
-    st.subheader("2. Average Price by City")
-    st.pyplot(plot_price_by_city(filtered_df))
+    col1, col2, col3, col4 = st.columns(4)
 
-    # price and mileage by fuel
-    st.subheader("3. Price vs Mileage by Fuel Type")
-    st.pyplot(plot_price_mileage_by_fuel(filtered_df))
+    top_brand = (
+        filtered_df["oem"]
+        .value_counts()
+        .index[0]
+    )
 
+    top_city = (
+        filtered_df["city"]
+        .value_counts()
+        .index[0]
+    )
+
+    col1.metric(
+        "Total Listings",
+        f"{len(filtered_df):,}"
+    )
+
+    col2.metric(
+        "Average Market Price",
+        f"₹{filtered_df['price_lakhs'].mean():.2f} L"
+    )
+
+    col3.metric(
+        "Top Brand",
+        top_brand.title()
+    )
+
+    col4.metric(
+        "Top City",
+        top_city.title()
+    )
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.pyplot(
+            plot_brand_listings(filtered_df)
+        )
+
+    with col2:
+        st.pyplot(
+            plot_brand_price(filtered_df)
+        )
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.pyplot(
+            plot_city_listings(filtered_df)
+        )
+
+    with col2:
+        st.pyplot(
+            plot_city_price(filtered_df)
+        )
+
+    st.subheader("Fuel Market")
+
+    st.pyplot(
+        plot_fuel_distribution(filtered_df)
+    )
+
+    st.subheader("Price and Mileage")
+
+    st.pyplot(
+        plot_price_vs_mileage(filtered_df)
+    )
 
 st.divider()
-st.caption("Used Car Market Analysis | Pandas + NumPy + Matplotlib + Streamlit")
+
+st.caption(
+    "Used Car Market Analytics | Pandas | NumPy | Matplotlib | Streamlit"
+)

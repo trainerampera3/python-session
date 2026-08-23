@@ -14,27 +14,27 @@ def load_data():
 def main():
     df = load_data()
 
-    print("\ndataset")
+    print("\nDataset :\n ")
     print("Rows:", df.shape[0])
     print("Columns:", df.shape[1])
 
-    print("\nprice")
+    print("\nPrice : \n")
     print(df["listed_price"].describe())
 
-    print("\ntop brands")
+    print("\nTop brands : \n")
     print(df["oem"].value_counts().head(10))
 
-    print("\nfuel")
+    print("\nFuel : \n")
     print(df["fuel"].value_counts())
 
-    print("\ntransmission")
+    print("\nTransmission : \n")
     print(df["transmission"].value_counts())
 
-    print("\nbody type")
+    print("\nBody type : \n")
     print(df["body"].value_counts())
 
-    print("\ncity")
-    print(df["city"].value_counts().head(10))
+    print("\nCity : \n")
+    print(df["city"].value_counts().head(10).reset_index(name = "Count"))
 
 
 if __name__ == "__main__":
