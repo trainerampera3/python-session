@@ -219,7 +219,9 @@ __marimo__/
 
 
 
-# cars date hichis 100 mb so makin t onot push to git
+# cars date hichis 100 mb so makin t onot push to git 
+# we are not puding any of the raw data to git and we are unstaged them 
+# using this command we do that - git reset task1/vinayAug22Task/data/rawData/
 
-task1/vinayAug22Task/data/rawData/cars_data_clean.csv
-task1/vinayAug22Task/data/rawData/cars_details_merges.csv
+
+task1/vinayAug22Task/data/rawData/
