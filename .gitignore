@@ -216,3 +216,10 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+
+
+# cars date hichis 100 mb so makin t onot push to git
+
+task1/vinayAug22Task/data/rawData/cars_data_clean.csv
+task1/vinayAug22Task/data/rawData/cars_details_merges.csv
