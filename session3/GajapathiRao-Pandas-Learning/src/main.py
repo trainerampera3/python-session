@@ -181,7 +181,7 @@ plt.tight_layout()
 
 # plt.savefig(
 #     Path("output") / "worldwide_semiconductor_billings.png"
-# )
+# )1
 
 
 regional = df[
