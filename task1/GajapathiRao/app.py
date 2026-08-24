@@ -137,6 +137,7 @@ st.markdown(
 
     div[data-testid="stAlert"] {
         border-radius: 12px;
+        color: #172b4d;
     }
 
     
@@ -185,7 +186,17 @@ st.markdown(
     }
 
     
+    
+    div[data-testid="stDataFrame"] canvas, 
+    div[data-testid="stDataFrame"] div,
+    div[data-testid="stDataFrame"] span {
+        color: #000000 !important;
+    }
 
+    
+    div[data-testid="stAlert"] div {
+        color: #000000 !important;
+    }
     .insight-card {
         background: white;
         border: 1px solid #e4e9f2;
