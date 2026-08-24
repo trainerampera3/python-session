@@ -149,20 +149,21 @@ st.markdown(
         border: 1px solid #e4e9f2;
         border-bottom: none;
         margin-bottom: -1px;
+        color: #4a5568;
     }
 
     
     button[data-baseweb="tab"] {
         font-weight: 700 !important;
         font-size: 15px !important;
-        color: #4a5568 !important; /* Clear dark grey text */
+        color: #4a5568 !important; 
         padding: 10px 20px !important;
         transition: all 0.2s ease;
     }
 
     
     button[data-baseweb="tab"][aria-selected="true"] {
-        color: #315fd4 !important; /* Matches your header blue */
+        color: #315fd4 !important; 
         border-bottom: 3px solid #315fd4 !important;
     }
 
