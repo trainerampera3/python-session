@@ -22,7 +22,7 @@ st.markdown(
     """
     <style>
 
-    /* ---------- Global ---------- */
+    
 
     .stApp {
         background: #f6f8fc;
@@ -36,7 +36,7 @@ st.markdown(
         padding-bottom: 2rem;
     }
 
-    /* ---------- Header ---------- */
+    
 
     .dashboard-header {
         # background: linear-gradient(135deg, #163d8f 0%, #315fd4 55%, #5b4acb 100%);
@@ -65,6 +65,11 @@ st.markdown(
         margin-top: 8px;
         opacity: 0.92;
     }
+    
+    [data-testid="stMetricLabel"] p, 
+    [data-testid="stMetricValue"] div {
+        color: black !important;
+    }
 
     .section-title {
         font-size: 23px;
@@ -82,7 +87,7 @@ st.markdown(
         margin-bottom: 12px;
     }
 
-    /* ---------- KPI cards ---------- */
+    
 
     div[data-testid="stMetric"] {
         background: white;
@@ -105,7 +110,7 @@ st.markdown(
         font-weight: 800;
     }
 
-    /* ---------- Sidebar ---------- */
+    
 
     section[data-testid="stSidebar"] {
         background: #ffffff;
@@ -119,7 +124,7 @@ st.markdown(
         color: #172b4d;
     }
 
-    /* ---------- Containers ---------- */
+    
 
     div[data-testid="stVerticalBlockBorderWrapper"] {
         background: white;
@@ -128,15 +133,15 @@ st.markdown(
         box-shadow: 0 3px 12px rgba(20, 40, 80, 0.045);
     }
 
-    /* ---------- Alerts ---------- */
+    
 
     div[data-testid="stAlert"] {
         border-radius: 12px;
     }
 
-        /* ---------- Tabs ---------- */
+    
 
-    /* Container holding all tabs */
+    
     div[data-testid="stTabs"] {
         background: #ffffff;
         padding: 10px 16px 0px 16px;
@@ -146,7 +151,7 @@ st.markdown(
         margin-bottom: -1px;
     }
 
-    /* Individual Tab Buttons */
+    
     button[data-baseweb="tab"] {
         font-weight: 700 !important;
         font-size: 15px !important;
@@ -155,13 +160,13 @@ st.markdown(
         transition: all 0.2s ease;
     }
 
-    /* Selected Active Tab */
+    
     button[data-baseweb="tab"][aria-selected="true"] {
         color: #315fd4 !important; /* Matches your header blue */
         border-bottom: 3px solid #315fd4 !important;
     }
 
-    /* Tab content box matching your card style */
+    
     div[data-testid="stTabPanel"] {
         background: white;
         border: 1px solid #e4e9f2;
@@ -171,14 +176,14 @@ st.markdown(
     }
 
 
-    /* ---------- Dataframe ---------- */
+    
 
     div[data-testid="stDataFrame"] {
         border-radius: 12px;
         overflow: hidden;
     }
 
-    /* ---------- Small insight cards ---------- */
+    
 
     .insight-card {
         background: white;
@@ -190,7 +195,7 @@ st.markdown(
     }
 
     .insight-label {
-        color: #667085;
+        color: black;
         font-size: 12px;
         font-weight: 650;
         text-transform: uppercase;
@@ -432,9 +437,9 @@ with st.sidebar.expander("Transaction & Product", expanded=False):
     )
 
 st.sidebar.divider()
-st.sidebar.caption(
-    f"Source rows: {len(master_df):,} transactions"
-)
+# st.sidebar.caption(
+#     f"Source rows: {len(master_df):,} transactions"
+# )
 
 
 
@@ -463,15 +468,15 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-st.markdown(
-    f"""
-    <div class="section-caption">
-        Showing <b>{len(filtered_df):,}</b> transactions after applying
-        the selected filters.
-    </div>
-    """,
-    unsafe_allow_html=True,
-)
+# st.markdown(
+#     f"""
+#     <div class="section-caption">
+#         Showing <b>{len(filtered_df):,}</b> transactions after applying
+#         the selected filters.
+#     </div>
+#     """,
+#     unsafe_allow_html=True,
+# )
 
 total_sales = filtered_df["total_price"].sum()
 total_transactions = len(filtered_df)
