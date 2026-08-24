@@ -249,7 +249,6 @@ def format_currency(value):
 
 
 def make_chart(fig, height=330):
-    """Apply one consistent visual language to all Plotly charts."""
     fig.update_layout(
         template="plotly_white",
         height=height,
