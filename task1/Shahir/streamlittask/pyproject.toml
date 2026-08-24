@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "streamlittask"
+version = "0.1.0"
+description = ""
+authors = ["ShahirAmpera <Shahr.shaik@amperatech.ai>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+streamlit = "^1.62.0"
+pandas = "^3.0.5"
+matplotlib = "^3.11.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
