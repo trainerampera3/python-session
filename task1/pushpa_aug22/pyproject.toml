@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "pushpa-aug22"
+version = "0.1.0"
+description = ""
+authors = ["Pushpaampera <pushpa.siyyadri@amperatech.ai>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+streamlit = "^1.62.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
