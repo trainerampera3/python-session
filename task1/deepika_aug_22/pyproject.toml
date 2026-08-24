@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "deepika-aug-22"
+version = "0.1.0"
+description = ""
+authors = ["deepikaampera <deepika.katam@amperatech.ai>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+streamlit = "^1.62.0"
+pandas = "^3.0.5"
+matplotlib = "^3.11.1"
+plotly = "^6.9.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
