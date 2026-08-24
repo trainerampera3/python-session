@@ -3,8 +3,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
-from task1.Shahir.streamlittask.streamlittask.utilities import gives_min_max_dates, department_changer,fillter,disease_type_changer,change_insurance_id
-from task1.Shahir.streamlittask.streamlittask.count_data import get_patient_count,get_admission_count,get_bed_count,get_discharge_count,get_avg_discharge_rate
+from utilities import gives_min_max_dates, department_changer,fillter,disease_type_changer,change_insurance_id
+from count_data import get_patient_count,get_admission_count,get_bed_count,get_discharge_count,get_avg_discharge_rate
 
 
 st.set_page_config(
