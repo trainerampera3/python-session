@@ -27,6 +27,8 @@ st.markdown(
     .stApp {
         background: #f6f8fc;
     }
+    header { visibility: hidden; }
+    [data-testid="stDecoration"] { display: none; }
 
     .block-container {
         max-width: 1500px;
@@ -45,7 +47,7 @@ st.markdown(
         padding: 24px 30px;
         border-radius: 10px;
         margin-bottom: 18px;
-        margin-top: 50px;
+        margin-top: 0px;
         color: white;
         box-shadow: 0 8px 24px rgba(31, 70, 150, 0.18);
     }
@@ -70,9 +72,12 @@ st.markdown(
         color: black;
         margin: 20px 0 10px 0;
     }
+    .section-title::active {
+        color: black;
+    }
 
     .section-caption {
-        color: #667085;
+        color: black;
         font-size: 13px;
         margin-bottom: 12px;
     }
@@ -129,11 +134,42 @@ st.markdown(
         border-radius: 12px;
     }
 
-    /* ---------- Tabs ---------- */
+        /* ---------- Tabs ---------- */
 
-    button[data-baseweb="tab"] {
-        font-weight: 650;
+    /* Container holding all tabs */
+    div[data-testid="stTabs"] {
+        background: #ffffff;
+        padding: 10px 16px 0px 16px;
+        border-radius: 12px 12px 0 0;
+        border: 1px solid #e4e9f2;
+        border-bottom: none;
+        margin-bottom: -1px;
     }
+
+    /* Individual Tab Buttons */
+    button[data-baseweb="tab"] {
+        font-weight: 700 !important;
+        font-size: 15px !important;
+        color: #4a5568 !important; /* Clear dark grey text */
+        padding: 10px 20px !important;
+        transition: all 0.2s ease;
+    }
+
+    /* Selected Active Tab */
+    button[data-baseweb="tab"][aria-selected="true"] {
+        color: #315fd4 !important; /* Matches your header blue */
+        border-bottom: 3px solid #315fd4 !important;
+    }
+
+    /* Tab content box matching your card style */
+    div[data-testid="stTabPanel"] {
+        background: white;
+        border: 1px solid #e4e9f2;
+        border-radius: 0 0 14px 14px;
+        padding: 24px;
+        box-shadow: 0 3px 12px rgba(20, 40, 80, 0.045);
+    }
+
 
     /* ---------- Dataframe ---------- */
 
@@ -316,9 +352,9 @@ st.markdown(
 
 
 st.sidebar.title("Dashboard Filters")
-st.sidebar.caption(
-    "Use the filters below to update every KPI and chart."
-)
+# st.sidebar.caption(
+#     "Use the filters below to update every KPI and chart."
+# )
 
 years = sorted(master_df["year"].dropna().unique().tolist())
 quarters = sorted(master_df["quarter"].dropna().unique().tolist())
