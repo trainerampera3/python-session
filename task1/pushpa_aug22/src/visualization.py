@@ -2,7 +2,6 @@ import matplotlib.pyplot as plt
 
 
 
-
 def monthly_booking_chart(data):
 
     fig, ax = plt.subplots(figsize=(10, 5))

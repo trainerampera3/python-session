@@ -26,7 +26,6 @@ print("Shape after removing duplicates:", df.shape)
 
 
 # Children has only a few missing values.
-# Missing children means there were no children in the booking.
 df["children"] = df["children"].fillna(0)
 
 

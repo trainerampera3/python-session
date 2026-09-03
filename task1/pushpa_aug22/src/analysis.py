@@ -2,7 +2,6 @@ import pandas as pd
 
 
 
-
 CLEANED_FILE = "data/cleaned/hotel_bookings_cleaned.csv"
 
 
