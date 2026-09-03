@@ -4,8 +4,8 @@ from api.routes import customers , customers_group , customer_address
 #sahir
 #Jay
 #Jhansi
-#Deepika
-from task2.src.api.routes import orders_billing   
+from api.routes import stores
+from api.routes import orders_billing   
 
 def create_app() -> FastAPI:
     app = FastAPI()
@@ -35,6 +35,7 @@ def create_app() -> FastAPI:
     
     
     #Stores-Deepika
+    app.include_router(stores.router)
 
     @app.get("/")
     def read_root():
