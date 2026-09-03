@@ -17,9 +17,8 @@ QUALITY_FILE = PROCESSED_DATA / "data_quality_report.csv"
 def load_data():
     df = pd.read_csv(INPUT_FILE, low_memory=False)
 
-    print("\n" + "=" * 60)
-    print("RAW DATA")
-    print("=" * 60)
+    
+    print("\nRAW DATA")
     print("Rows    :", df.shape[0])
     print("Columns :", df.shape[1])
 
@@ -76,9 +75,8 @@ def select_useful_columns(df):
     useful_columns = [column for column in useful_columns if column in df.columns]
     df = df[useful_columns].copy()
 
-    print("\n" + "=" * 60)
-    print("COLUMN REDUCTION")
-    print("=" * 60)
+    
+    print("\nCOLUMN REDUCTION")
     print("Columns before:", 66)
     print("Columns after :", len(df.columns))
 
@@ -100,10 +98,7 @@ def remove_duplicates(df):
         df = df.drop_duplicates()
 
     after = len(df)
-
-    print("\n" + "=" * 60)
-    print("DUPLICATES")
-    print("=" * 60)
+    print("\nDUPLICATES")
     print("Duplicates removed:", before - after)
 
     return df
@@ -196,9 +191,8 @@ def remove_invalid_values(df):
 
 
 def handle_missing_values(df):
-    print("\n" + "=" * 60)
-    print("MISSING VALUES")
-    print("=" * 60)
+    
+    print("\nMISSING VALUES")
 
     numeric_columns = df.select_dtypes(include=np.number).columns
 
@@ -246,9 +240,8 @@ def create_derived_columns(df):
 
 
 def validate_data(df):
-    print("\n" + "=" * 60)
-    print("FINAL VALIDATION")
-    print("=" * 60)
+    
+    print(" \nFINAL VALIDATION")
     print("Rows    :", df.shape[0])
     print("Columns :", df.shape[1])
 
@@ -286,9 +279,8 @@ def save_data(df, report):
     df.to_csv(OUTPUT_FILE, index=False)
     report.to_csv(QUALITY_FILE, index=False)
 
-    print("\n" + "=" * 60)
-    print("FILES CREATED")
-    print("=" * 60)
+    
+    print(" \nFILES CREATED")
     print("Clean dataset:", OUTPUT_FILE)
     print("Quality report:", QUALITY_FILE)
 
