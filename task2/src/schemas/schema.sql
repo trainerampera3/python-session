@@ -175,7 +175,6 @@ CREATE TABLE discounts (
     prod_ids      JSONB,
 
 
-
     discount_type VARCHAR(30) NOT NULL
                   CHECK (
                       discount_type IN (
@@ -184,7 +183,6 @@ CREATE TABLE discounts (
                           'coupon'
                       )
                   ),
-
 
 
     percentage    NUMERIC(5,2)

@@ -48,7 +48,7 @@ from src.visualization import (
 
 st.set_page_config(
     page_title="Hotel Booking Analytics",
-    page_icon="🏨",
+    page_icon="",
     layout="wide"
 )
 
@@ -242,7 +242,6 @@ if filtered_df.empty:
 
 
 
-
 kpis = get_overall_kpis(
     filtered_df
 )
@@ -300,10 +299,10 @@ st.divider()
 
 overview_tab, hotel_tab, customer_tab, booking_tab = st.tabs(
     [
-        "📊 Overview",
-        "🏨 Hotels",
-        "👤 Customers",
-        "📅 Bookings"
+        " Overview",
+        " Hotels",
+        " Customers",
+        " Bookings"
     ]
 )
 
