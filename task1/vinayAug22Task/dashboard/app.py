@@ -27,7 +27,7 @@ DATA_FILE = BASE_DIR / "data" / "processed" / "used_cars_cleaned.csv"
 
 st.set_page_config(
     page_title="Used Car Analytics",
-    page_icon="🚗",
+    page_icon="",
     layout="wide"
 )
 
@@ -40,7 +40,7 @@ def load_data():
 
 df = load_data()
 
-st.title("🚗 Used Car Market Analytics")
+st.title("Used Car Market Analytics")
 st.caption("Interactive dashboard for customers, dealers and market analysis")
 
 
