@@ -1,18 +1,3 @@
-# from database.connection import get_connection  
-# from fastapi import FastAPI
-
-# def create_app() -> FastAPI:
-#     app = FastAPI()    
-
-#     @app.get("/")
-#     def read_root():
-#         return {"message": "E-commerce API is running!"}
-    
-#     return app
-
-# app = create_app()
-
-
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from datetime import datetime
