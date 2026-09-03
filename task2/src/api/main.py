@@ -5,7 +5,7 @@ from api.routes import customers , customers_group , customer_address
 #Jay
 #Jhansi
 #Deepika
-#Pushpa
+from task2.src.api.routes import orders_billing   
 
 def create_app() -> FastAPI:
     app = FastAPI()
@@ -13,6 +13,7 @@ def create_app() -> FastAPI:
     app.include_router(customers.router)
     app.include_router(customers_group.router)
     app.include_router(customer_address.router)
+
     
     #Orders-Sahir
     
@@ -26,7 +27,7 @@ def create_app() -> FastAPI:
     
     
     #Orders3-Pushpa
-    
+    app.include_router(orders_billing.router)
     
     #products-Vinay
     
