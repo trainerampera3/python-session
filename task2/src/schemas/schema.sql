@@ -184,7 +184,6 @@ CREATE TABLE discounts (
                       )
                   ),
 
-
     percentage    NUMERIC(5,2)
                   CHECK (percentage >= 0 AND percentage <= 100),
 
