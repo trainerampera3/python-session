@@ -44,3 +44,32 @@ def get_customers():
             return {"count": len(data), "data": data}
     finally:
         connection.close()
+        
+        
+@router.post("")
+def create_customer(customer: dict):
+        connection = get_connection()
+
+        try:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    """
+                    INSERT INTO customers (name, email, phone, password, gender, customer_group_id, status)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s)
+                    RETURNING customer_id;
+                    """,
+                    (
+                        customer["name"],
+                        customer["email"],
+                        customer["phone"],
+                        customer["password"],
+                        customer["gender"],
+                        customer["customer_group_id"],
+                        customer["status"]
+                    )
+                )
+                new_customer_id = cursor.fetchone()[0]
+                connection.commit()
+                return {"message": "Customer created successfully", "customer_id": new_customer_id}
+        finally:
+            connection.close()
