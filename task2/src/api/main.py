@@ -1,5 +1,4 @@
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
 from api.routes import customers
 
 def create_app() -> FastAPI:
@@ -9,7 +8,7 @@ def create_app() -> FastAPI:
 
     @app.get("/")
     def read_root():
-        return {"message": "Weather ETL API is running"}
+        return {"message": "E-commerce API is running!"}
 
     return app
 
