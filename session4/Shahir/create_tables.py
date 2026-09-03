@@ -12,7 +12,7 @@ def create_tables(conn):
                 status VARCHAR(20) NOT NULL
             )
         """)
-
+            
         # Diseases
         cur.execute("""
             CREATE TABLE IF NOT EXISTS diseases (

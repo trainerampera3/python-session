@@ -7,7 +7,7 @@ from load_data import load_data
 conn = psycopg.connect(
     host="localhost",
     port="5433",
-    dbname="postgres",
+    dbname="Hospital_database",
     user="shahir",
     password="shahir"
 )
@@ -46,13 +46,13 @@ load_data(
 
 load_data(
     conn,
-    "data/hospital_data/drug.csv",
+    "data/drug.csv",
     "drugs"
 )
 
 load_data(
     conn,
-    "data/hospital_data/prescription.csv",
+    "data/prescription.csv",
     "prescriptions"
 )
 

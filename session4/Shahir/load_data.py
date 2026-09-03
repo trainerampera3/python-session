@@ -8,7 +8,7 @@ def load_data(conn, file_path, table_name):
     columns = ", ".join(data.columns)
 
     with conn.cursor() as cur:
-
+        
         with cur.copy(f"""
             COPY {table_name} ({columns})
             FROM STDIN
