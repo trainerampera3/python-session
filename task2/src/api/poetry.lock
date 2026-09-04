@@ -368,17 +368,6 @@ files = [
 cli = ["click (>=5.0)"]
 
 [[package]]
-name = "python-multipart"
-version = "0.0.32"
-description = "A streaming multipart parser for Python"
-optional = false
-python-versions = ">=3.10"
-files = [
-    {file = "python_multipart-0.0.32-py3-none-any.whl", hash = "sha256:ff6d3f776f16878c894e52e107296ffc890e913c611b1a4ec6c44e2821fe2e23"},
-    {file = "python_multipart-0.0.32.tar.gz", hash = "sha256:be54b7f3fa167bb83e4fcd936b887b708f4e57fe75911c02aebf53efaf8d938e"},
-]
-
-[[package]]
 name = "starlette"
 version = "1.6.0"
 description = "The little ASGI library that shines."
@@ -453,4 +442,4 @@ standard = ["httptools (>=0.8.0)", "python-dotenv (>=0.13)", "pyyaml (>=5.1)", "
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "39332ee8b426081238a7a30e7c5c7d21d2f200d5caf315a27d130e63ed08e136"
+content-hash = "c6223d7829675decb91c9bf51d98ccf64bd22edd7a73de430b61795ab6d284e4"
