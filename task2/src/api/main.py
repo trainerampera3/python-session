@@ -1,5 +1,8 @@
 from fastapi import FastAPI
 from api.routes import customers , customers_group , customer_address
+from api.routes import products , product_inventory , product_price
+#sahir
+#Jay
 #Vinay
 from api.routes import order_items,order_shipping
 from api.routes import orders, order_transactions
@@ -33,7 +36,9 @@ def create_app() -> FastAPI:
     app.include_router(orders_billing.router)
     
     #products-Vinay
-    
+    app.include_router(products.router)
+    app.include_router(product_price.router)
+    app.include_router(product_inventory.router)
     
     
     
