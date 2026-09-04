@@ -12,6 +12,7 @@ uvicorn = "^0.52.4"
 psycopg = {extras = ["binary"], version = "^3.3.5"}
 dotenv = "^0.9.9"
 python-dotenv = "^1.2.3"
+python-multipart = "^0.0.32"
 
 
 [build-system]
