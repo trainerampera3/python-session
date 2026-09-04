@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS fact_table (
 );
 
 
-#create table for user
+
 CREATE TABLE IF NOT EXISTS users (
     user_id SERIAL PRIMARY KEY,
     username VARCHAR(50) UNIQUE NOT NULL,
@@ -77,12 +77,10 @@ CREATE TABLE IF NOT EXISTS users (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-#create a table for user registration add password as well
 CREATE TABLE IF NOT EXISTS user_registration (
-    registration_id SERIAL PRIMARY KEY,
+    user_registration_id SERIAL PRIMARY KEY,
     username VARCHAR(50) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
     user_id INT REFERENCES users(user_id),
     registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    status VARCHAR(20) DEFAULT 'pending'
 );
