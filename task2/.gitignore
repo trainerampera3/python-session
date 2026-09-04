@@ -1,0 +1,11 @@
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+
+# Test and type-checker caches
+.pytest_cache/
+.mypy_cache/
+
+# Poetry lock files
+poetry.lock
+
