@@ -12,7 +12,7 @@ def get_connection():
             dbname=os.getenv("DB_NAME"),
             user=os.getenv("DB_USER"),
             port=os.getenv("DB_PORT"),
-            password=os.getenv("DB_PASSWORD")
+            password=os.getenv("DB_PASSWORD"),
         )
         return connection
     except Exception as exc:  
