@@ -1,9 +1,10 @@
 [tool.poetry]
-name = "task2"
+name = "api"
 version = "0.1.0"
 description = ""
-authors = ["GajapathiRaoAmpera <gajapathi.mugunda@amperatech.ai>"]
+authors = ["ShahirAmpera <Shahr.shaik@amperatech.ai>"]
 readme = "README.md"
+
 
 [tool.poetry.dependencies]
 python = "^3.12"
@@ -11,8 +12,7 @@ fastapi = "^0.141.1"
 uvicorn = "^0.52.4"
 psycopg = {extras = ["binary"], version = "^3.3.5"}
 dotenv = "^0.9.9"
-python-dotenv = "^1.2.3"
-python-multipart = "^0.0.32"
+
 
 
 [build-system]
