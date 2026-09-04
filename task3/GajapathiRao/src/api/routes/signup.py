@@ -16,6 +16,10 @@ router = APIRouter(prefix="/signup", tags=["Create User"])
 class User(BaseModel):
     username: str
     password: str
+    role: str
+    email: str
+    
+    
 
 
 
@@ -30,12 +34,6 @@ def get_password_hash(password: str) -> str:
 
 
 
-
-# def get_password_hash(password: str) -> str:
-#     return pwd_context.hash(password)
-# def verify_password(plain_password: str, hashed_password: str) -> bool:
-#     return pwd_context.verify(plain_password, hashed_password)
-
 @router.post("")
 def create_user(user: User):
     connection = get_connection()
@@ -48,8 +46,8 @@ def create_user(user: User):
 
 
     cursor.execute(
-        "INSERT INTO user_registration (username, password) VALUES (%s, %s)",
-        (user.username, get_password_hash(user.password))
+        "INSERT INTO user_registration (username, password, role, email) VALUES (%s, %s, %s, %s)",
+        (user.username, get_password_hash(user.password), user.role, user.email)
     )
     connection.commit()
 

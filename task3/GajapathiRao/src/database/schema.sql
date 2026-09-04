@@ -84,3 +84,11 @@ CREATE TABLE IF NOT EXISTS user_registration (
     user_id INT REFERENCES users(user_id),
     registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 );
+
+
+CREATE TABLE IF NOT EXISTS user_sessions (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+    token TEXT UNIQUE NOT NULL,
+    expires_at TIMESTAMP WITH TIME ZONE NOT NULL
+);
