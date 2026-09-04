@@ -2,10 +2,10 @@ from fastapi import FastAPI
 from api.routes import customers , customers_group , customer_address
 #Vinay
 #sahir
-#Jay
+from api.routes import orders, order_transactions
 #Jhansi
 #Deepika
-from task2.src.api.routes import orders_billing   
+from api.routes import orders_billing   
 
 def create_app() -> FastAPI:
     app = FastAPI()
@@ -22,6 +22,8 @@ def create_app() -> FastAPI:
     
 
     #Orders2-Jayanth
+    app.include_router(orders.router)
+    app.include_router(order_transactions.router)
     
     
     
