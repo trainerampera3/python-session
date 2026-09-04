@@ -3,10 +3,11 @@ from api.routes import customers , customers_group , customer_address
 from api.routes import products , product_inventory , product_price
 #sahir
 #Jay
-#Vinay
+
 from api.routes import order_items,order_shipping
 from api.routes import orders, order_transactions
 #Jhansi
+#Deepika
 from api.routes import stores
 from api.routes import orders_billing   
 
