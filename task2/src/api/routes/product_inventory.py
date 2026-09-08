@@ -5,7 +5,6 @@ from database.connection import get_connection
 from pydantic import BaseModel,Field
 
 class ProductInventory(BaseModel):
-    prod_inv_id: int
     prod_id: int
     quantity: int = Field(ge=0 ,default=0 , description="Quantity must be a non-negative integer")
     store_id: int
@@ -77,13 +76,19 @@ def create_product_inventory(product_inventory : ProductInventory):
         with connection.cursor() as cursor:
             cursor.execute(
                 """
-                    SELECT 
-    
-    
-                            
-                """
+                    INSERT INTO product_inventory (prod_id, quantity, store_id) 
+                    VALUES (%s, %s, %s)
+                    Returning prod_inv_id;           
+                """,
+                (
+                    product_inventory.prod_id,
+                    product_inventory.quantity,
+                    product_inventory.store_id
+                )
             )
-        return 2
+            new_prod_inv_id = cursor.fetchone()[0]
+            connection.commit()
+            return {"message": "Product inventory created successfully", "prod_inv_id": new_prod_inv_id}
     
     finally:
         connection.close()   
@@ -134,13 +139,16 @@ def delete_product_inventory(prod_inv_id : int):
         with connection.cursor() as cursor:
             cursor.execute(
                 """
-                    SELECT 
-    
-    
-                            
-                """
+                    DELETE FROM product_inventory
+                    WHERE prod_inv_id = %s             
+                """,
+                (prod_inv_id,)
             )
-        return 2
+            connection.commit()
+            if cursor.rowcount > 0:
+                return {"message": f"Product inventory with ID {prod_inv_id} deleted successfully"}
+            else:
+                return {"message": f"Product inventory with ID {prod_inv_id} not found"}, 404  
     
     finally:
         connection.close()
