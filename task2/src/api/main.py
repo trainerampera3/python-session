@@ -6,7 +6,7 @@ from api.routes import products , product_inventory , product_price
 
 from api.routes import order_items,order_shipping
 from api.routes import orders, order_transactions
-#Jhansi
+from api.routes import discounts
 #Deepika
 from api.routes import stores
 from api.routes import orders_billing   
@@ -29,8 +29,8 @@ def create_app() -> FastAPI:
     #Orders2-Jayanth
     app.include_router(orders.router)
     app.include_router(order_transactions.router)
-    
-    
+    # discounts-jhansi
+    app.include_router(discounts)
     
     
     #Orders3-Pushpa
