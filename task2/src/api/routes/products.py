@@ -137,11 +137,24 @@ def create_product(product : Products):
         with connection.cursor() as cursor:
             cursor.execute(
                 """
-                    SELECT
-
-                        
-                """
+                    INSERT INTO products (name, short_desc, description, specifications, additional_data, image_title, image_url, status)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+                    RETURNING prod_id;        
+                """,
+                (
+                    product.name,
+                    product.short_desc,
+                    product.description,
+                    product.specifications,
+                    product.additional_data,
+                    product.image_title,
+                    product.image_url,
+                    product.status
+                )
             )
+            new_prod_id = cursor.fetchone()[0]
+            connection.commit() 
+            return {"messsage" : "Prodouct created successfuly","prod_id" : new_prod_id}
 
     finally:
         connection.close()
@@ -154,10 +167,28 @@ def update_product(prod_id : int, product : Products):
         with connection.cursor() as cursor:
             cursor.execute(
                 """
-                    SELECT 
-                        
-                """
+                    UPDATE products
+                    SET name = %s, short_desc = %s, description = %s, specifications = %s, additional_data = %s, image_title = %s, image_url = %s, status = %s,
+                    updated_at = NOW()
+                    WHERE prod_id = %s        
+                """,
+                (
+                    product.name,
+                    product.short_desc,
+                    product.description,
+                    product.specifications,
+                    product.additional_data,
+                    product.image_title,
+                    product.image_url,
+                    product.status,
+                    prod_id
+                )
             )
+            connection.commit()
+            if cursor.rowcount > 0:
+                return {"message": f"Product with ID {prod_id} updated successfully"}
+            else:
+                return {"message": f"Product with ID {prod_id} not found"}, 404
 
     finally:
         connection.close()
@@ -171,10 +202,18 @@ def update_product_status(prod_id : int, status : str):
         with connection.cursor() as cursor:
             cursor.execute(
                 """
-                    SELECT 
-                        
-                """
+                    UPDATE products
+                    SET status = %s,
+                    updated_at = NOW()
+                    WHERE prod_id = %s   
+                """,
+                (status, prod_id)
             )
+            connection.commit()
+            if cursor.rowcount > 0:
+                return {"message": f"Product status with ID {prod_id} updated successfully"}
+            else:
+                return {"message": f"Product status with ID {prod_id} not found"}, 404
 
     finally:
         connection.close()  
@@ -187,10 +226,15 @@ def delete_product(prod_id : int):
         with connection.cursor() as cursor:
             cursor.execute(
                 """
-                    SELECT 
-                        
-                """
+                    DELETE From products
+                    WHERE prod_id = %s      
+                """,
+                (prod_id,)
             )
-
+            connection.commit()
+            if cursor.rowcount > 0:
+                return {"message": f"Product with ID {prod_id} deleted successfully",}
+            else:
+                return {"message": f"Product with ID {prod_id} not found"}, 404
     finally:
         connection.close()
