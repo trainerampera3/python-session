@@ -6,7 +6,6 @@ from pydantic import BaseModel , condecimal
 
 
 class ProductPrice(BaseModel):
-    prod_price_id: int
     prod_id: int
     price: condecimal(ge=0, decimal_places=2, max_digits=10) # type: ignore
     store_id: int
@@ -75,12 +74,19 @@ def create_product_price(product_price : ProductPrice):
         with connection.cursor() as cursor:
             cursor.execute(
                 """
-                    SELECT 
-
-
-                        
-                """
+                    INSERT INTO product_price (prod_id, price, store_id)
+                    VALUES (%s, %s, %s)
+                    RETURNING prod_price_id;               
+                """,
+                (
+                    product_price.prod_id,
+                    product_price.price,
+                    product_price.store_id
+                )
             )
+            new_prod_price_id = cursor.fetchone()[0]
+            connection.commit()
+            return {"message": "Product price created successfully", "prod_price_id": new_prod_price_id}
 
     finally:
         connection.close()
@@ -93,9 +99,11 @@ def update_product_price(prod_price_id : int, product_price : ProductPrice):
         with connection.cursor() as cursor:
             cursor.execute(
                 """
-                    SELECT 
-                        
-                """
+                    INSERT INTO product_price (prod_price_id, prod_id, price, store_id)
+                    VALUES (%s, %s, %s, %s)
+                    RETURNING prod_price_id;        
+                """,
+
             )
 
     finally:
@@ -126,10 +134,15 @@ def delete_product_price(prod_price_id : int):
         with connection.cursor() as cursor:
             cursor.execute(
                 """
-                    SELECT 
-                        
-                """
+                    DELETE FROM product_price
+                    WHERE prod_price_id = %s           
+                """,
+                (prod_price_id,)
             )
-
+            connection.commit()
+            if cursor.rowcount > 0:
+                return {"message": f"Product price with ID {prod_price_id} deleted successfully"}
+            else:
+                return {"message": f"Product price with ID {prod_price_id} not found"}, 404
     finally:
         connection.close()

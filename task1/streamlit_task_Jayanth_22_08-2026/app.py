@@ -38,13 +38,6 @@ df3 = pd.concat(
 # )
 
 
-# st.title("🏋️ Gym Membership & Workout Dashboard")
-# st.markdown(
-#     "Overview of member activity, workout behavior and membership renewal."
-# )
-
-# df3 = df3.query('Age <= 25')
-# youth = youth.groupby('renewed_membership').size()
 
 def plot_bar(data, title, xlabel="", ylabel="Count", rotation=0, figsize=(8, 5), stacked=False):
     fig, ax = plt.subplots(figsize=figsize)
@@ -66,9 +59,6 @@ st.set_page_config(
 )
 
 renewal_labels = {0: "Not Renewed", 1: "Renewed"}
-# -----------------------------
-# Title
-# -----------------------------
 
 st.title("Gym Membership & Workout Dashboard")
 
@@ -77,11 +67,8 @@ st.markdown(
 )
 
 
-# -----------------------------
-# Sidebar Filters
-# -----------------------------
 
-st.sidebar.header("🔍 Filters")
+st.sidebar.header(" Filters")
 
 gender_filter = st.sidebar.multiselect(
     "Gender",
@@ -101,9 +88,6 @@ filtered_data = df3[
 ]
 print(filtered_data.info())
 
-# -----------------------------
-# KPI Calculations
-# -----------------------------
 
 total_members = len(filtered_data)
 
@@ -118,9 +102,6 @@ avg_frequency = filtered_data[
 ].mean()
 
 
-# -----------------------------
-# KPI Cards
-# -----------------------------
 
 col1, col2, col3, col4 = st.columns(4)
 
@@ -376,33 +357,6 @@ with col2:
 
 
 # st.subheader(" Login Frequency vs Membership Renewal")
-
-# login_not_renewed = filtered_data.loc[
-#     filtered_data["renewed_membership"] == 0,
-#     "num_logins"
-# ]
-
-# login_renewed = filtered_data.loc[
-#     filtered_data["renewed_membership"] == 1,
-#     "num_logins"
-# ]
-
-# fig, ax = plt.subplots(figsize=(8, 4))
-
-# ax.boxplot(
-#     [login_not_renewed, login_renewed],
-    
-# )
-
-# ax.set_title("Login Frequency vs Membership Renewal")
-# ax.set_xlabel("Membership Status")
-# ax.set_ylabel("Number of Logins")
-# ax.grid(axis="y", alpha=0.25)
-
-# fig.tight_layout()
-# st.pyplot(fig, use_container_width=True)
-
-# plt.close(fig)
 
 
 st.subheader("Membership Type vs Membership Renewal")
