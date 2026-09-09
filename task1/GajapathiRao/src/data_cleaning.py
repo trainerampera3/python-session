@@ -9,9 +9,7 @@ def clean_data(
     customer,
     fact,
 ):
-    # ----------------------------------------------
-    # Rename customer key
-    # ----------------------------------------------
+
 
     customer = customer.rename(
         columns={
@@ -25,9 +23,6 @@ def clean_data(
         }
     )
 
-    # ----------------------------------------------
-    # Handle missing values
-    # ----------------------------------------------
 
     payment["bank_name"] = payment["bank_name"].fillna(
         "No Bank / Cash"
@@ -45,9 +40,6 @@ def clean_data(
         "Unknown"
     )
 
-    # ----------------------------------------------
-    # Convert numeric columns
-    # ----------------------------------------------
 
     fact["quantity"] = pd.to_numeric(
         fact["quantity"],
@@ -69,9 +61,6 @@ def clean_data(
         errors="coerce"
     )
 
-    # ----------------------------------------------
-    # Convert time columns
-    # ----------------------------------------------
 
     time["date"] = pd.to_datetime(
         time["date"],
