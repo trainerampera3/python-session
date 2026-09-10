@@ -1,12 +1,12 @@
 from fastapi import FastAPI, HTTPException, APIRouter
 from pydantic import BaseModel
 from typing import List, Optional
-from connection import get_connection
+from database.connection import get_connection
 from psycopg.types.json import Jsonb
 
 router=APIRouter(
-    prefix="\discounts",
-    tag=["Discounts"]
+    prefix="/discounts",
+    tags=["Discounts"]
 )
 conn =  get_connection()
 class Discount(BaseModel):

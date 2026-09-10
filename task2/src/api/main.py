@@ -30,7 +30,7 @@ def create_app() -> FastAPI:
     app.include_router(orders.router)
     app.include_router(order_transactions.router)
     # discounts-jhansi
-    app.include_router(discounts)
+    app.include_router(discounts.router)
     
     
     #Orders3-Pushpa
