@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from api.routes import customers , customers_group , customer_address
 from api.routes import products , product_inventory , product_price
+from fastapi.middleware.cors import CORSMiddleware
+
 #sahir
 #Jay
 
@@ -22,7 +24,13 @@ def create_app() -> FastAPI:
     app.include_router(order_shipping.router)
     
     
-    
+    app.add_middleware(
+            CORSMiddleware,
+            allow_origins=["http://localhost:3000", "http://127.0.0.1:3000","http://localhost:5173" , "http://127.0.0.1:5173"],
+            allow_credentials=True,
+            allow_methods=["*"],
+            allow_headers=["*"],
+        )
     
     
 
