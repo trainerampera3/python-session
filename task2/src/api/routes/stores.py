@@ -5,7 +5,7 @@ from pydantic import BaseModel
 
 from database.connection import get_connection
 
-router = APIRouter(prefix="/stores", tags=["stores"])
+router = APIRouter(prefix="", tags=["stores"])
 
 
 class Store(BaseModel):
@@ -36,11 +36,6 @@ class StorePatch(BaseModel):
     email: str | None = None
     phone: str | None = None
     status: str | None = None
-
-
-@router.get("/")
-def read_root():
-    return {"message": "E-commerce API is running!"}
 
 
 @router.get("/stores")
