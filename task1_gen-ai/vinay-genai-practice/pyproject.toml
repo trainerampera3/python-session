@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "vinay-genai-practice"
+version = "0.1.0"
+description = ""
+authors = ["Vinay-Ampera <Vinay.repalle@amperatech.ai>"]
+package-mode = false
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+jupyter = "^1.1.1"
+ipykernel = "^7.3.0"
+tiktoken = "^0.14.0"
+sentence-transformers = "^6.1.0"
+scikit-learn = "^1.9.1"
+matplotlib = "^3.11.2"
+jupyterlab = "^4.6.4"
+transformers = "^5.17.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
