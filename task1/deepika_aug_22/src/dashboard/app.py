@@ -7,6 +7,7 @@ from pathlib import Path
 
 st.set_page_config(
     page_title="Job Management Dashboard",
+    page_icon="💼",
     layout="wide"
 )
 
@@ -40,23 +41,23 @@ ds_salaries["salary_in_usd"] = pd.to_numeric(
 )
 
 
-st.sidebar.title("Job Filters")
+st.sidebar.title("💼 Job Filters")
 
 page = st.sidebar.selectbox(
     "Select Dashboard",
     [
-        "Job Market Overview",
-        "Job Roles & Skills",
-        "Salary Analysis"
+        "📊 Job Market Overview",
+        "💼 Job Roles & Skills",
+        "💰 Salary Analysis"
     ]
 )
 
 
 # DASHBOARD 1
 
-if page == "Job Market Overview":
+if page == "📊 Job Market Overview":
 
-    st.title("Job Market Overview")
+    st.title("📊 Job Market Overview")
 
     st.write(
         "This dashboard provides an overview of the current AI job market "
@@ -203,7 +204,7 @@ if page == "Job Market Overview":
 
     with col1:
 
-        st.subheader("Job Roles Distribution")
+        st.subheader("📊 Job Roles Distribution")
 
         job_roles = (
             filtered_ai_jobs["job_title"]
@@ -238,7 +239,7 @@ if page == "Job Market Overview":
 
     with col2:
 
-        st.subheader("Experience Level Distribution")
+        st.subheader("📊 Experience Level Distribution")
 
         experience = (
             filtered_ai_jobs["experience_level"]
@@ -275,7 +276,7 @@ if page == "Job Market Overview":
 
     with col1:
 
-        st.subheader("Job Category Distribution")
+        st.subheader("📂 Job Category Distribution")
 
         categories = (
             filtered_ai_jobs["job_category"]
@@ -366,7 +367,7 @@ if page == "Job Market Overview":
 
     st.divider()
 
-    st.subheader("Geographic Analysis")
+    st.subheader("🌍 Geographic Analysis")
 
     col1, col2 = st.columns(2)
 
@@ -374,7 +375,7 @@ if page == "Job Market Overview":
 
     with col1:
 
-        st.subheader("Jobs by Country")
+        st.subheader("🌍 Jobs by Country")
 
         jobs_by_country = (
             filtered_ai_jobs["country"]
@@ -408,7 +409,7 @@ if page == "Job Market Overview":
 
     with col2:
 
-        st.subheader("Jobs by City")
+        st.subheader("🏙️ Jobs by City")
 
         jobs_by_city = (
             filtered_ai_jobs["city"]
@@ -441,7 +442,7 @@ if page == "Job Market Overview":
         )
   
 
-    st.subheader("Remote Work Distribution")
+    st.subheader("🏠 Remote Work Distribution")
 
     remote_work = (
         filtered_ai_jobs["remote_work"]
@@ -472,9 +473,9 @@ if page == "Job Market Overview":
 # JOB ROLES & SKILLS
 
 
-elif page == "Job Roles & Skills":
+elif page == "💼 Job Roles & Skills":
 
-    st.title("Job Roles & Skills")
+    st.title("💼 Job Roles & Skills")
 
     st.write(
         "Detailed analysis of job roles, experience levels, "
@@ -559,7 +560,7 @@ elif page == "Job Roles & Skills":
     st.divider()
 
 
-    st.subheader("Top Job Roles by Demand")
+    st.subheader("🔥 Top Job Roles by Demand")
 
     top_titles = (
         jobs["Title"]
@@ -596,7 +597,7 @@ elif page == "Job Roles & Skills":
 
     with col1:
 
-        st.subheader("Jobs by Experience Level")
+        st.subheader("📊 Jobs by Experience Level")
 
         experience_levels = (
             jobs["ExperienceLevel"]
@@ -629,7 +630,7 @@ elif page == "Job Roles & Skills":
 
     with col2:
 
-        st.subheader("Jobs by Years of Experience")
+        st.subheader("📈 Jobs by Years of Experience")
 
         years_experience = (
             jobs["YearsOfExperience"]
@@ -670,7 +671,7 @@ elif page == "Job Roles & Skills":
 
     with col1:
 
-        st.subheader("Most Required Skills")
+        st.subheader("🔥 Most Required Skills")
 
         top_skills = (
             skill_data
@@ -704,7 +705,7 @@ elif page == "Job Roles & Skills":
 
     with col2:
 
-        st.subheader("Top Responsibilities")
+        st.subheader("📋 Top Responsibilities")
 
         top_responsibilities = (
             responsibility_data
@@ -737,7 +738,7 @@ elif page == "Job Roles & Skills":
 
 
 
-    st.subheader("Most Common Job Keywords")
+    st.subheader("🔑 Most Common Job Keywords")
 
     top_keywords = (
         keyword_data
@@ -770,7 +771,7 @@ elif page == "Job Roles & Skills":
 
     st.divider()
 
-    st.subheader("Job Role Analysis")
+    st.subheader("🔎 Job Role Analysis")
 
     selected_title = st.selectbox(
         "Select a Job Role",
@@ -828,7 +829,7 @@ elif page == "Job Roles & Skills":
 
 
     st.subheader(
-        f"Details for {selected_title}"
+        f"📋 Details for {selected_title}"
     )
 
     st.dataframe(
@@ -840,9 +841,9 @@ elif page == "Job Roles & Skills":
 # DASHBOARD 3
 # SALARY ANALYSIS
 
-elif page == "Salary Analysis":
+elif page == "💰 Salary Analysis":
 
-    st.title("Salary Analysis")
+    st.title("💰 Salary Analysis")
 
     st.write(
         "Analysis of salaries across data science "
@@ -906,7 +907,7 @@ elif page == "Salary Analysis":
     st.divider()
 
 
-    st.subheader("Average Salary by Job Title")
+    st.subheader("💰 Average Salary by Job Title")
 
     salary_by_job = (
         salary_data
@@ -947,7 +948,7 @@ elif page == "Salary Analysis":
     with col1:
 
         st.subheader(
-            "Average Salary by Experience Level"
+            "📊 Average Salary by Experience Level"
         )
 
         salary_by_experience = (
@@ -985,7 +986,7 @@ elif page == "Salary Analysis":
     with col2:
 
         st.subheader(
-            "Average Salary by Employment Type"
+            "💼 Average Salary by Employment Type"
         )
 
         salary_by_employment = (
@@ -1021,7 +1022,7 @@ elif page == "Salary Analysis":
 
     if "work_year" in salary_data.columns:
 
-        st.subheader("Average Salary by Year")
+        st.subheader("📈 Average Salary by Year")
 
         salary_by_year = (
             salary_data
@@ -1058,7 +1059,7 @@ elif page == "Salary Analysis":
 
     st.divider()
 
-    st.subheader("Salary by Selected Job")
+    st.subheader("🔎 Salary by Selected Job")
 
     selected_job = st.selectbox(
         "Select Job Title",
