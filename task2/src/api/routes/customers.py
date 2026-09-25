@@ -8,7 +8,7 @@ class Customer(BaseModel):
     name: str
     email: str
     phone: str
-    password: str
+    # password: str
     gender: str
     customer_group_id: int
     status: str
@@ -145,7 +145,6 @@ def update_customer(customer_id: int, customer: Customer):
                 SET name = %s,
                     email = %s,
                     phone = %s,
-                    password = %s,  
                     gender = %s,
                     customer_group_id = %s,
                     status = %s,
@@ -156,7 +155,6 @@ def update_customer(customer_id: int, customer: Customer):
                     customer.name,
                     customer.email,
                     customer.phone,
-                    customer.password,
                     customer.gender,
                     customer.customer_group_id,
                     customer.status,
@@ -188,7 +186,9 @@ def delete_customer(customer_id: int):
             if cursor.rowcount > 0:
                 return {"message": "Customer deleted successfully"}
             else:
-                return {"message": "Customer not found"}, 404
+                return {"message": "Customer not found"}
+    except Exception as e:
+        return{f"message":f"Error is occuring: {e}"}
     finally:
         connection.close()
 
