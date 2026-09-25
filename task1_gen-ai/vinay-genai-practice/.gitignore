@@ -1,0 +1,14 @@
+# Ignore Jupyter Notebook auto-saved backup checkpoints
+.ipynb_checkpoints/
+
+
+.venv/
+
+# Ignore Python bytecode compilation caches
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+
+.vscode/
