@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "genai-practice"
+version = "0.1.0"
+description = ""
+authors = ["Pushpaampera <pushpa.siyyadri@amperatech.ai>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+nitk = "^0.1"
+ipykernel = "^7.3.0"
+jupyter = "^1.1.1"
+nltk = "^3.10.3"
+matplotlib = "^3.11.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
